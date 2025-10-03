@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Proposal</title>
+    <style>
+        /* --- CSS: Global Styling and Lego Theme --- */
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+        
+        :root {
+            --lego-red: #d9001b;
+            --lego-yellow: #fde800;
+            --lego-tan: #f5eedc;
+            --lego-dark-brown: #583321;
+            --lego-green: #008000;
+        }
+
+        body {
+            font-family: 'Bangers', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--lego-dark-brown);
+            text-align: center;
+            background-color: var(--lego-tan);
+            overflow-x: hidden;
+            flex-direction: column;
+        }
+
+        .page {
+            padding: 20px;
+            max-width: 90%;
+            width: 400px;
+            box-sizing: border-box;
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* The first page starts visible */
+        #page-1 {
+            display: flex;
+        }
+
+        /* --- Visuals and QR Code --- */
+        .lego-visual {
+            width: 100%;
+            height: auto;
+            max-width: 350px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        #qrcode-container {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 5px dashed var(--lego-red);
+            border-radius: 10px;
+        }
+
+        /* --- Headings and Text --- */
+        .main-heading {
+            color: var(--lego-red);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 var(--lego-yellow);
+        }
+
+        .text-content {
+            font-family: sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        /* --- Buttons and Quiz --- */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--lego-red);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: 3px solid var(--lego-dark-brown);
+            box-shadow: 0 5px 0 var(--lego-dark-brown);
+            transition: all 0.1s ease;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cta-button:active {
+            box-shadow: 0 2px 0 var(--lego-dark-brown);
+            transform: translateY(3px);
+        }
+
+        .quiz-option {
+            background-color: var(--lego-yellow);
+            color: var(--lego-dark-brown);
+            margin-bottom: 15px;
+            width: 90%;
+            padding: 10px;
+            border: 2px solid var(--lego-dark-brown);
+            font-family: sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .correct { background-color: var(--lego-green); color: white; }
+        .incorrect { background-color: var(--lego-red); color: white; }
+        
+        /* --- Kiss Shower Effect (Page 5) --- */
+        .kiss {
+            position: fixed;
+            top: -5%;
+            font-size: 2em;
+            z-index: 1;
+            opacity: 0.9;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+<body onload="generateQRCode()">
+
+    <div id="page-1" class="page">
+        <h1 class="main-heading">Secret Mission Activated!</h1>
+        
+        <div id="qrcode-container">
+            <p style="font-family: sans-serif;">Scan this code with a second phone to continue your quest! 📲</p> 
+            <img id="qrcode-img" src="" alt="QR Code" style="width: 200px; height: 200px;">
+        </div>
+
+        <button class="cta-button" onclick="nextPage(2)">
+            (If QR fails, click here!)
+        </button>
+    </div>
+
+    <div id="page-2" class="page">
+        <img src="1000023414.jpg" alt="Lego Couple Scenario" class="lego-visual"> 
+        
+        <h1 class="main-heading" style="font-size: 3em; color: var(--lego-green); text-shadow: 3px 3px 0 var(--lego-yellow);">
+            My Dearest Bondu...
+        </h1>
+
+        <p class="text-content">
+            Every day with you is the best day in my life's game. You are my place of worship too, my forever teammate, and the one person who makes everything better.
+        </p>
+        <p class="text-content" style="font-size: 1.5em; color: var(--lego-red); font-family: 'Bangers', cursive;">
+            Will you marry me? 💍
+        </p>
+
+        <button class="cta-button" style="background-color: var(--lego-green);" onclick="nextPage(3)">
+            YES! (Ready for the next challenge)
+        </button>
+    </div>
+
+    <div id="page-3" class="page">
+        <h1 class="main-heading">The Final Challenge: Love Quiz!</h1>
+        <p class="text-content">To unlock the final message, answer these three questions about our love! (One attempt only!)</p>
+        
+        <div id="quiz-area" style="width: 100%;">
+            <p style="font-family: sans-serif; font-weight: bold;">1. What's my ideal date?</p>
+            <button class="quiz-option" data-answer="incorrect">A. A romantic dinner at a fancy place</button>
+            <button class="quiz-option" data-answer="correct">B. Amusement park date</button>
+            <button class="quiz-option" data-answer="incorrect">C. Movie night at home</button>
+            
+            <p style="font-family: sans-serif; font-weight: bold;">2. Which is my favorite food?</p>
+            <button class="quiz-option" data-answer="incorrect">A. momo</button>
+            <button class="quiz-option" data-answer="incorrect">B. drumstick</button>
+            <button class="quiz-option" data-answer="correct">C. All of the above</button>
+
+            <p style="font-family: sans-serif; font-weight: bold;">3. What's my biggest fear?</p>
+            <button class="quiz-option" data-answer="correct">A. snakes</button>
+            <button class="quiz-option" data-answer="incorrect">B. Spiders</button>
+            <button class="quiz-option" data-answer="incorrect">C. Heights</button>
+        </div>
+
+        <button id="quiz-next-button" class="cta-button" style="display: none;" onclick="nextPage(4)">
+            CLAIM YOUR REWARD
+        </button>
+    </div>
+
+    <div id="page-4" class="page">
+        <img src="1000023412.jpg" alt="Lego Couple Front" class="lego-visual"> 
+
+        <h1 class="main-heading">You Passed!</h1>
+        <h2 class="main-heading" style="font-size: 1.8em; margin-bottom: 20px;">Your Note for Bondu Diwas</h2>
+
+        <p class="text-content">
+            Happy 'Boyfriend's Day' to the one who makes my life better in every way!
+            <br><br>
+            Just kidding, let's call it 'Bondu Diwas' instead, because our bondu only gets stronger with time.
+            <br>
+            Love you, baby!
+            <br>
+            Mero fuchey!🥰
+        </p>
+
+        <button class="cta-button" onclick="nextPage(5)">
+            FINAL REWARD (Kisses)
+        </button>
+    </div>
+
+    <div id="page-5" class="page">
+        <img src="1000023413.jpg" alt="Lego Couple Back" class="lego-visual">
+
+        <h1 class="main-heading">Shower of Love!</h1>
+        <p class="text-content">
+            A million kisses from your fiancé(e)! Muah! 💋
+        </p>
+    </div>
+
+    <script>
+        // --- QR CODE GENERATION ---
+        
+        // !!! IMPORTANT: CHANGE THIS TO YOUR LIVE PUBLIC URL AFTER HOSTING !!!
+        const LIVE_URL = 'https://PLACEHOLDER-YOUR-PUBLIC-LINK-HERE/proposal.html'; 
+
+        function generateQRCode() {
+            let qrContent = LIVE_URL;
+
+            // Fallback for local testing
+            if (LIVE_URL.includes('PLACEHOLDER')) {
+                qrContent = "https://www.google.com/search?q=I+Love+You"; 
+                console.warn("QR Code URL is placeholder. Please update LIVE_URL with your hosted link.");
+            }
+
+            // Using the Google Charts API to generate the QR code image
+            const size = '200x200';
+            const data = encodeURIComponent(qrContent);
+            const qrUrl = `https://chart.googleapis.com/chart?cht=qr&chs=${size}&chl=${data}`;
+
+            document.getElementById('qrcode-img').src = qrUrl;
+        }
+
+
+        // --- PAGE NAVIGATION ---
+        function nextPage(pageNumber) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Show the target page
+            const targetPage = document.getElementById('page-' + pageNumber);
+            if (targetPage) {
+                targetPage.style.display = 'flex';
+                if (pageNumber === 5) {
+                    startKissShower();
+                }
+            }
+        }
+
+        // --- QUIZ LOGIC ---
+        let correctAnswers = 0;
+        let questionsAnswered = 0;
+        const totalQuestions = 3;
+        const quizArea = document.getElementById('quiz-area');
+
+        quizArea.addEventListener('click', function(event) {
+            const button = event.target;
+            // Check if the click was on a quiz option button
+            if (button.classList.contains('quiz-option') && questionsAnswered < totalQuestions) {
+                
+                const questionDiv = button.parentNode; // The quiz-area div
+                const questionButtons = quizArea.querySelectorAll('.quiz-option');
+
+                // Find which question group this button belongs to (0, 1, or 2)
+                let questionIndex = -1;
+                let currentQuestion = 0;
+                for (let i = 0; i < questionButtons.length; i += 3) {
+                    if (Array.from(questionButtons).slice(i, i + 3).includes(button)) {
+                        questionIndex = currentQuestion;
+                        break;
+                    }
+                    currentQuestion++;
+                }
+
+                if (questionIndex !== -1) {
+                    // Disable only the buttons for the question that was just answered
+                    let questionStartIndex = questionIndex * 3;
+                    for (let i = 0; i < 3; i++) {
+                        questionButtons[questionStartIndex + i].disabled = true;
+                    }
+                }
+
+                if (button.dataset.answer === 'correct') {
+                    button.classList.add('correct');
+                    correctAnswers++;
+                } else {
+                    button.classList.add('incorrect');
+                }
+                
+                questionsAnswered++;
+
+                // If all questions are answered, show the final button
+                if (questionsAnswered === totalQuestions) {
+                    if (correctAnswers === totalQuestions) {
+                        document.getElementById('quiz-next-button').style.display = 'inline-block';
+                        alert(`PERFECT! You scored ${correctAnswers}/${totalQuestions}. You passed the Bondu Test!`);
+                    } else {
+                         // Allow user to proceed even if they failed, for the sake of the proposal flow
+                         document.getElementById('quiz-next-button').style.display = 'inline-block';
+                         alert(`Aww! You scored ${correctAnswers}/${totalQuestions}. But your commitment is clear! Proceed to the next stage!`);
+                    }
+                }
+            }
+        });
+
+
+        // --- KISS SHOWER EFFECT ---
+        function startKissShower() {
+            function createKiss() {
+                const kiss = document.createElement('div');
+                kiss.classList.add('kiss');
+                kiss.textContent = '😘'; 
+
+                const leftPos = Math.random() * 100;
+                kiss.style.left = `${leftPos}vw`;
+                kiss.style.animationDuration = `${Math.random() * 2 + 3}s`; 
+
+                document.body.appendChild(kiss);
+
+                setTimeout(() => {
+                    kiss.remove();
+                }, 5000);
+            }
+
+            const showerDuration = 7000; 
+            const intervalId = setInterval(createKiss, 100);
+
+            setTimeout(() => {
+                clearInterval(intervalId);
+            }, showerDuration);
+        }
+    </script>
+</body>
+</html>
+9
